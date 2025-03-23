@@ -140,15 +140,15 @@ p {
 
 /* Футер */
 footer {
-    width: 100%;
-    background: #000;
-    color: white;
-    text-align: center;
-    padding: 15px 0;
-    font-weight: 600;
-    position: relative;
+    position: fixed;
+    left: 0;
     bottom: 0;
+    width: 100%;
+    background-color: #f8f9fa;
+    text-align: center;
+    padding: 1rem;
 }
+
 /* Media Queries
 -----------------------------------------*/
 
