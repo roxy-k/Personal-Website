@@ -1,11 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>About Me - Oksana Katysheva</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script src="starter.js" defer></script>
 </head>
 <body>
-    <h1>About</h1>
+
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link active" href="about.html">About me</a></li>
+          <li class="nav-item"><a class="nav-link" href="services.html">Services</a></li>
+          <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <main class="about-wrapper">
+    <!-- Левая колонка -->
+    <section class="about-text">
+      <h1>About Me</h1>
+      <p>
+        Hello! I'm Oksana Katysheva, a passionate Software Developer with a strong interest in Front-End and Full-Stack development.
+        I love building modern, responsive, and interactive web applications that bring ideas to life.
+      </p>
+    </section>
+  
+    <!-- Правая колонка -->
+    <section class="quote-box moved-down">
+      <h2>Need a bit of inspiration?</h2>
+      <button id="getQuoteBtn" class="btn">Get a quote</button>
+      <p id="quoteText">Click the button to load a quote...</p>
+    </section>
+  </main>
+
+  <footer class="text-center py-3">
+    <p>&copy; 2025 Oksana's Website</p>
+  </footer>
+
 </body>
 </html>

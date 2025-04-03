@@ -1,102 +1,72 @@
-var myVariable = "hello";
-// "hello" is the data we are storing in our variable
-//  name of the variable 
-//  what is var? Variable
+// Wait for the full HTML to load before running any script
+document.addEventListener("DOMContentLoaded", () => {
+  // --- Contact Form Submission (on contact.html) ---
+  const form = document.getElementById("contactForm");
+  const response = document.getElementById("formResponse");
 
-var anything = "hello"; // string
-var anything1 = 1; // number
-var anythingTrue = true; // boolean(true or false)
+  if (form) {
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault(); // Prevent the form from refreshing the page
 
-let anythingLet = "let" // let  means your variable can be changed later
-const anythingConst = "const" // const means your variable cannot be changed later
+      // Get input values
+      const name = form.name.value.trim();
+      const email = form.email.value.trim();
+      const message = form.message.value.trim();
 
-anythingLet = "lettuce" // this is allowed
-anythingConst = "consttt" // this is not allowed/you cannot change the value of a const variable
-let thisVariable = "hello";
-let camelCase = "hello";
-let snake_case = "hello";
-let OneTwoThree = "hello";
-let thisIsExactlyWhatIWant = "hello";
+      // Basic validation
+      if (!name || !email.includes("@") || !message) {
+        response.textContent = "Please fill out all fields correctly.";
+        response.style.color = "orange";
+        return;
+      }
 
-console.log(myVariable); // console.log is a function that prints out the value of a variable
-window.alert(myVariable); // window.alert is a function that creates a pop-up with the value of a variable
-console.log(anything);
-//use const first
-//only use let when needed
-//Industry stardard
+      // Show sending message
+      response.textContent = "Sending...";
+      response.style.color = "white";
 
-console.log(anything1);
+      try {
+        // Send POST request using fetch()
+        const res = await fetch("https://reqres.in/api/users", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ name, email, message }),
+        });
 
-//Expressions & Operators
-//Expressions are anything that evaluates to a single value
-const addVariable = 1 + 1
-const subtractVariable = 1 - 1
-const multiplyVariable = 1 * 1
-const divideVariable = 1 / 1
+        const data = await res.json();
 
-//Equal ===
-//Not Equal !==
-//And &&
-//Or ||
-// Activity: Create a function that takes an age variable and tells us
-// which age group they belong to (such as "Teenager" "Young adult" "infant" etc)
-// Infant
-// Child
-// Preteen
-// Teenager
-// Young Adult
-// Middle-age
-// Senior
-const age = 5
-function getAgeGroup(){
-    if (age <= 3 && age >= 0){
-        console.log("Infant")
-    }
-    if (age > 3 && age < 10){
-        console.log("Child")
-    }
-    if (age >= 10 && age <= 12){
-        console.log("Preteen")
-    }
-    if (age < 20 && age >= 13){
-        console.log("Teenager")
-    }
-    if (age >= 20 && age <= 40){
-        console.log("Young Adult")
-    }
-    if (age > 40 && age <= 60){
-        console.log("Middle-aged Adult")
-    }
-    if (age > 60 && age <= 120) {
-        console.log("Senior")
-    }
-}
+        if (res.ok) {
+          response.textContent = "Thank you! Your message has been sent ✅";
+          response.style.color = "lightgreen";
+          form.reset(); // Clear the form
+        } else {
+          response.textContent = "Oops! Something went wrong.";
+          response.style.color = "red";
+        }
+      } catch (error) {
+        response.textContent = "Network error. Try again later.";
+        response.style.color = "red";
+      }
+    });
+  }
 
-getAgeGroup()
- 
+  // --- Quote Button (on index.html or about.html) ---
+  const quoteBtn = document.getElementById("getQuoteBtn");
+  const quoteText = document.getElementById("quoteText");
 
+  if (quoteBtn && quoteText) {
+    quoteBtn.addEventListener("click", () => {
+      quoteText.textContent = "Loading...";
 
-
-
-function checkLeapYear(year){
-    if ((year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0)){
-        console.log("Leap Year")
-    } else {
-        console.log("Not a Leap Year")
-    }
-}
-checkLeapYear(2020)
-checkLeapYear(2021)
-checkLeapYear(2024)
-checkLeapYear(1900)
-
-function myFunction() {
-    let i = 0;
-    while (i < 10) {
-        console.log("Hello");
-        i = i + 1; // Или i++
-    }
-}
-
-myFunction();
-
+      fetch("https://api.quotable.io/random")
+        .then((res) => res.json())
+        .then((data) => {
+          quoteText.textContent = `"${data.content}" — ${data.author}`;
+        })
+        .catch(() => {
+          quoteText.textContent = "Failed to load quote.";
+        });
+    });
+  }
+});
